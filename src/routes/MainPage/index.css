@@ -1,0 +1,12 @@
+.logo{
+  color: #aaaaaa;
+  font-size: 23px;
+  padding: 12px;
+  height: 58px;
+}
+.hide {
+  visibility: hidden;
+}
+.show {
+  visibility: show;
+}

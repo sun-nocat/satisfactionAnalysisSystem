@@ -1,21 +1,33 @@
 import React from 'react';
 import { connect } from 'dva';
-import Login from '../components/Login'
-import styles from './IndexPage.css';
+import MainPage from './MainPage';
+import { routerRedux } from 'dva/router';
 
-function IndexPage() {
 
+/**
+ * 系统主页
+ */
+function IndexPage(props) {
+  const { user } = props;
+
+  if (Object.keys(user).length === 0) {
+    console.log('ok')
+    props.dispatch(routerRedux.push('/login'));
+  }
 
   return (
-    <div className={styles.normal}>
-      <div className={styles.login}>
-        <Login/>
-      </div>
+    <div style={{height: '100%'}}>
+      <MainPage/>
     </div>
   );
 }
 
 IndexPage.propTypes = {
+
 };
 
-export default connect()(IndexPage);
+export default connect((state)=> {
+  return {
+    user: state.global.user
+  }
+})(IndexPage);

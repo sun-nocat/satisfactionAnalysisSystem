@@ -14,9 +14,16 @@ const loginTitle = (
   </div>
 )
 
-export default () => {
+/**
+ * 登录组件
+ */
+function Login (props) {
+
   const onFinish = values => {
-    console.log('Success:', values);
+    props.dispatch({
+      type: 'login/submit',
+      payload: values,
+    })
   };
 
   const onFinishFailed = errorInfo => {
@@ -58,3 +65,4 @@ export default () => {
   );
 };
 
+export default Login;

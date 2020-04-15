@@ -28,3 +28,32 @@ export default function request(url, options) {
     .then(data => ({ data }))
     .catch(err => ({ err }));
 }
+
+/**
+ * 封装post请求
+ */
+function post(url, data) {
+  return request(url, {
+    method: 'POST',
+    body: JSON.stringify(data)
+  })
+}
+
+/**
+ * 封装get请求
+ */
+function get(url, data) {
+
+  let params = '';
+  Object.keys(data).map((item) => {
+    params = `${params}${item}=${data[item]}&`
+  })
+  const newUrl = `${url}?${params.substring(0, params.length-1)}`
+  return request(newUrl)
+}
+
+
+export {
+  post,
+  get
+}
