@@ -1,5 +1,7 @@
 import fetch from 'dva/fetch';
 
+const ORIGIN = 'http://127.0.0.1:8001'
+
 function parseJSON(response) {
   return response.json();
 }
@@ -22,11 +24,13 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  return fetch(url, options)
+  const newUrl = `${ORIGIN}${url}`;
+  console.log(newUrl)
+  return fetch(newUrl, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
+    .then(data => ({ ...data }))
+    .catch(err => ({ ...err }));
 }
 
 /**

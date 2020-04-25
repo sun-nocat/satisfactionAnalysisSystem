@@ -17,7 +17,7 @@ function IndexPage(props) {
 
   return (
     <div style={{height: '100%'}}>
-      <MainPage/>
+      <MainPage user={user}/>
     </div>
   );
 }

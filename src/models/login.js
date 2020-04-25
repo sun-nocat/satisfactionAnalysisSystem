@@ -18,12 +18,12 @@ export default {
       yield put({ type: 'save' });
     },
     *submit({ payload }, { call, put }) { 
-      // const { status, data } = yield call(login, payload); // 登录 TODO
-      const status = true;
-      const data = true;
+      const { status, data } = yield call(login, payload); // 登录 TODO
+      console.log(status, data)
       if (status && data) {
       yield put({type: 'global/updateUserMsg', payload: {
-          name: 'test'
+          name: data.name,
+          uid: data.uid
         }})
         // 登录成功
         yield put(routerRedux.push('/'));

@@ -1,12 +1,13 @@
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Avatar, Dropdown } from 'antd';
 import classNames from 'classnames'
 import React from 'react'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  DashboardOutlined,
+  ToolOutlined,
+  TeamOutlined 
 } from '@ant-design/icons';
 import styles from './index.css'
 
@@ -23,8 +24,23 @@ class MainPage extends React.Component {
     });
   };
 
+  renderMenu(){
+    return (
+      <Menu>
+      <Menu.Item>
+          修改信息
+      </Menu.Item>
+      <Menu.Item>
+          退出登录
+      </Menu.Item>
+    </Menu>
+    )
+  }
+
   render() {
     const { collapsed } = this.state;
+    const { name } = this.props.user;
+    const color = '#f56a00';
     
     let logoClass = classNames({
       [styles.logo]: true,
@@ -40,16 +56,20 @@ class MainPage extends React.Component {
           </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
-              <UserOutlined />
-              <span>nav 1</span>
+            <DashboardOutlined />
+              <span>总览</span>
             </Menu.Item>
             <Menu.Item key="2">
-              <VideoCameraOutlined />
-              <span>nav 2</span>
+            <UserOutlined />
+              <span>用户管理</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <UploadOutlined />
-              <span>nav 3</span>
+            <ToolOutlined />        
+              <span>技术支持</span>
+            </Menu.Item>
+            <Menu.Item key="4">
+            <TeamOutlined />            
+              <span>关于</span>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -59,6 +79,22 @@ class MainPage extends React.Component {
               className: 'trigger',
               onClick: this.toggle,
             })}
+            <Dropdown overlay={this.renderMenu()} className={styles.dropdown}>
+                <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                <Avatar
+                  style={{
+                    backgroundColor: color,
+                    verticalAlign: 'middle',
+                    margin: 13,
+                  }}
+                  size="large"
+                  >
+                  {name}  
+                </Avatar>      
+                  {/* <DownOutlined /> */}
+                </a>
+              </Dropdown>
+
           </Header>
           <Content
             className="site-layout-background"

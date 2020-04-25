@@ -10,3 +10,7 @@
 .show {
   visibility: show;
 }
+.dropdown{
+  float: right;
+  margin-right: 20px;
+}
