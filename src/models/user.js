@@ -1,9 +1,9 @@
 import { routerRedux } from 'dva/router';
-import { login, logout } from '../services/user'
+import { login, logout, userUpdate } from '../services/user'
 import { message } from 'antd' 
 export default {
 
-  namespace: 'login',
+  namespace: 'user',
 
   state: {
     isLogin: false,
@@ -21,10 +21,7 @@ export default {
     *submit({ payload }, { call, put }) { 
       const { status, data } = yield call(login, payload); // 登录 TODO
       if (status && data) {
-      yield put({type: 'global/updateUserMsg', payload: {
-          name: data.name,
-          uid: data.uid
-        }})
+      yield put({type: 'global/updateUserMsg', payload: data})
         // 登录成功
         yield put(routerRedux.push('/'));
       } else
@@ -33,12 +30,24 @@ export default {
     },
     *logout({ payload }, { call, put }) {
       const { status, data } = yield call(logout, {})
-      console.log(status)
       if (status) {
         message.success(data)
         yield put(routerRedux.push('/login'));
       } else {
         message.error(data)
+      }
+    },
+    // 更新用户信息
+    *userUpdate({ payload }, { call, put }) {
+      console.log(payload)
+      const { data, resolve, reject } = payload;
+      const { status } = yield call(userUpdate, data);
+      // 信息修改成功
+      if (status) {
+        yield put({ type: 'global/updateUserMsg', payload: payload.data})
+        resolve()
+      }else{
+        reject()
       }
     }
   },

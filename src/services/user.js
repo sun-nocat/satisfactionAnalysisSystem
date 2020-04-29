@@ -22,3 +22,10 @@ export function userInfo(payload) {
 export function logout(payload) {
   return get('/logout', {})
 }
+
+/**
+ * 修改用户信息
+ */
+export function userUpdate(payload) {
+  return post('/user/update', payload)
+}

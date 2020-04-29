@@ -30,7 +30,7 @@ class MainPage extends React.Component {
   // 登出
   logout = () => {
     console.log('logout')
-    this.props.dispatch({type: 'login/logout'})
+    this.props.dispatch({type: 'user/logout'})
   }
 
   // 修改信息

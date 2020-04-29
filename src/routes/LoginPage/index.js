@@ -19,6 +19,6 @@ LoginPage.propTypes = {
 
 export default connect((state)=>{
   return {
-    isLogin: state.login.isLogin
+    isLogin: state.user.isLogin
   }
 })(LoginPage);

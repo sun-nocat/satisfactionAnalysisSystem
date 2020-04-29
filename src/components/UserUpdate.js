@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { Modal, Form, Input, Button } from 'antd'
+import React, { useState, useEffect } from 'react';
+import { Modal, Form, Input, Button, message } from 'antd';
+import { connect } from 'dva';
+
 
 const layout = {
   labelCol: { span: 6 },
@@ -9,56 +11,57 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-class UserUpdate extends Component {
-  constructor(props){
-    super(props)
-    this.state={
-      visible: false
-    }
-  }
+function UserUpdate (props) {
 
-  showModal = () => {
-    this.setState({
-      visible: true,
+  const [visible, setVisible]  = useState(false);
+  // antd4 的 from 对象
+  const [form] = Form.useForm();
+
+
+  const handleOk = e => {
+    // 触发表单校验
+    form.validateFields().then((data)=>{
+      // 表单校验成功，可以提交
+      console.log(data)
+      new Promise((resolve,reject)=>{
+        props.dispatch({type: 'user/userUpdate', payload: {
+          data,
+          resolve,
+          reject
+        }})
+      }).then(()=>{
+        message.success('更新成功！')
+        setVisible(false)
+      }).catch(()=>{
+        message.error('更新失败！')
+      })
+    }).catch((error)=>{
+      console.log(error)
+    })
+  };
+
+  useEffect(() => {
+    // 显示输入框默认字段
+    form.setFieldsValue({
+        username: props.user.username,
+        name: props.user.name,
     });
-  };
+}, [props.user, form]);
 
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
-
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
-   onFinish = values => {
-    console.log('Success:', values);
-  };
-
-   onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-  };
-  render() {
     return (
       <div>
-        <div type="primary" onClick={this.showModal}>
+        <div type="primary" onClick={()=>setVisible(true)}>
           修改信息
         </div>
         <Modal
           title="个人信息修改"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
+          visible={visible}
+          onOk={handleOk}
+          onCancel={()=>setVisible(false)}
         >
           <Form
             {...layout}
+            form={form}
             name="userUpdate"
           >
             <Form.Item
@@ -88,6 +91,9 @@ class UserUpdate extends Component {
       </div>
     );
   }
-}
 
-export default UserUpdate;
+export default connect((state)=>{
+  return {
+    user: state.global.user,
+  }
+})(UserUpdate);

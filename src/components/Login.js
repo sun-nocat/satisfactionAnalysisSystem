@@ -21,7 +21,7 @@ function Login (props) {
 
   const onFinish = values => {
     props.dispatch({
-      type: 'login/submit',
+      type: 'user/submit',
       payload: values,
     })
   };
