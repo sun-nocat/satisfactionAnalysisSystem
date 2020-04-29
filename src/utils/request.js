@@ -39,7 +39,8 @@ export default function request(url, options) {
 function post(url, data) {
   return request(url, {
     method: 'POST',
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    credentials: 'include',
   })
 }
 
@@ -53,7 +54,10 @@ function get(url, data) {
     params = `${params}${item}=${data[item]}&`
   })
   const newUrl = `${url}?${params.substring(0, params.length-1)}`
-  return request(newUrl)
+  return request(newUrl,{
+    method: 'GET',
+    credentials: 'include',
+  })
 }
 
 

@@ -10,14 +10,19 @@ import { routerRedux } from 'dva/router';
 function IndexPage(props) {
   const { user } = props;
 
+  /**
+   * 进入主页时获取用户信息，用户权限控制
+   */
   if (Object.keys(user).length === 0) {
-    console.log('ok')
-    props.dispatch(routerRedux.push('/login'));
+    props.dispatch({
+      type: "global/fetchUserInfo",
+      payload: '123'
+    })
   }
 
   return (
     <div style={{height: '100%'}}>
-      <MainPage user={user}/>
+      <MainPage user={user} {...props}/>
     </div>
   );
 }

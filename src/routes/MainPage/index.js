@@ -9,9 +9,12 @@ import {
   ToolOutlined,
   TeamOutlined 
 } from '@ant-design/icons';
+import UserUpdate from '../../components/UserUpdate'
+
 import styles from './index.css'
 
 const { Header, Sider, Content } = Layout;
+
 
 class MainPage extends React.Component {
   state = {
@@ -24,13 +27,24 @@ class MainPage extends React.Component {
     });
   };
 
+  // 登出
+  logout = () => {
+    console.log('logout')
+    this.props.dispatch({type: 'login/logout'})
+  }
+
+  // 修改信息
+  changeMsg = () => {
+
+  }
+
   renderMenu(){
     return (
       <Menu>
-      <Menu.Item>
-          修改信息
+      <Menu.Item onClick={this.changeMsg}>
+        <UserUpdate/>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item onClick={this.logout}>
           退出登录
       </Menu.Item>
     </Menu>
