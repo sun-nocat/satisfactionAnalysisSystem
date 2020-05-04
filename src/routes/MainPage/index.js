@@ -10,13 +10,14 @@ import {
   TeamOutlined,
   MailOutlined,
   AreaChartOutlined,
-  FunctionOutlined
+  FunctionOutlined,
 } from '@ant-design/icons';
 import UserUpdate from '../../components/UserUpdate'
 import { routerRedux } from 'dva/router';
 
 import DataImport from '../DataImport/index'
 import DataMange from '../DataManage/index'
+import MeasurementModel from '../MeasurementModel/index'
 
 import styles from './index.css'
 
@@ -83,6 +84,14 @@ class MainPage extends React.Component {
         break;
       }
       case '5': {
+        res = <DataImport />    
+        break;
+      }
+      case '8': {
+        res = <MeasurementModel />
+        break;
+      }
+      case '9': {
         res = <DataImport />
         break;
       }
