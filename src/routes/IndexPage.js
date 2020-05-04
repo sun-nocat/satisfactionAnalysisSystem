@@ -33,6 +33,8 @@ IndexPage.propTypes = {
 
 export default connect((state)=> {
   return {
-    user: state.global.user
+    user: state.global.user,
+    menuKey: state.global.menuKey,
+    keyPath: state.global.keyPath,
   }
 })(IndexPage);

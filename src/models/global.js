@@ -8,6 +8,8 @@ export default {
   namespace: 'global',
   state: {
     user: {},
+    menuKey:'1',
+    keyPath: ['1'],
   },
 
   subscriptions: {
@@ -33,12 +35,24 @@ export default {
         yield put(routerRedux.push('/login'));
       }
     },
+    *updateKeyMsg({ payload }, { call, put }) {
+
+      yield put({
+        type: 'updateKey',
+        payload,
+      })
+    }
   },
 
   reducers: {
     // 更新用户信息
     updateUserMsg(state, action) {
       return { ...state, user: action.payload}
+    },
+    // 更新左侧key信息
+    updateKey(state, action) {
+
+      return { ...state, menuKey: action.payload.key, keyPath: action.payload.keyPath}
     }
   },
 

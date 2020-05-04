@@ -7,13 +7,21 @@ import {
   UserOutlined,
   DashboardOutlined,
   ToolOutlined,
-  TeamOutlined 
+  TeamOutlined,
+  MailOutlined,
+  AreaChartOutlined,
+  FunctionOutlined
 } from '@ant-design/icons';
 import UserUpdate from '../../components/UserUpdate'
+import { routerRedux } from 'dva/router';
+
+import DataImport from '../DataImport/index'
+import DataMange from '../DataManage/index'
 
 import styles from './index.css'
 
 const { Header, Sider, Content } = Layout;
+const { SubMenu } = Menu;
 
 
 class MainPage extends React.Component {
@@ -51,6 +59,41 @@ class MainPage extends React.Component {
     )
   }
 
+  // 点击左侧选项
+  menuOnClick = (e) =>{
+    console.log(e)
+    this.props.dispatch({
+      type: 'global/updateKeyMsg', 
+      payload: {
+        key: e.key,
+        keyPath: e.keyPath
+    }})
+    // onClick={()=>this.props.dispatch(routerRedux.push('/datapage'))}
+  }
+
+
+  // 根据用户选的menu,展示不同的组件
+  getContent() {
+    console.log('----', this.props.menuKey)
+    let res = '';
+    const { menuKey } = this.props;
+    switch(menuKey){
+      case '1': {
+        res = 1;
+        break;
+      }
+      case '5': {
+        res = <DataImport />
+        break;
+      }
+      default : {
+        res = <DataMange />;
+      }
+    }
+    return res;
+  }
+
+
   render() {
     const { collapsed } = this.state;
     const { name } = this.props.user;
@@ -68,11 +111,21 @@ class MainPage extends React.Component {
           <div className={logoClass} >
             满意度分析平台
           </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={this.menuOnClick}>
             <Menu.Item key="1">
             <DashboardOutlined />
               <span>总览</span>
             </Menu.Item>
+            <SubMenu key="sub1" icon={<AreaChartOutlined />} title="数据处理">
+              <Menu.Item key="5">数据导入</Menu.Item>
+              <Menu.Item key="6">数据管理</Menu.Item>
+              <Menu.Item key="7">数据分析</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub3" icon={<FunctionOutlined />} title="模型处理">
+              <Menu.Item key="8">测量模型</Menu.Item>
+              <Menu.Item key="9">结构方程模型</Menu.Item>
+              <Menu.Item key="10">模型管理</Menu.Item>
+            </SubMenu>
             <Menu.Item key="2">
             <UserOutlined />
               <span>用户管理</span>
@@ -118,7 +171,7 @@ class MainPage extends React.Component {
               minHeight: 280,
             }}
           >
-            Content
+           {this.getContent()}
           </Content>
         </Layout>
       </Layout>

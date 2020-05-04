@@ -1,6 +1,6 @@
 import fetch from 'dva/fetch';
 
-const ORIGIN = 'http://127.0.0.1:8001'
+const ORIGIN = ''
 
 function parseJSON(response) {
   return response.json();
