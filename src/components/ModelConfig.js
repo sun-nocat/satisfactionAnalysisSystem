@@ -20,7 +20,12 @@ function ModelConfig (props) {
   }
 
   const onValuesChange = (e) =>{
-    props.dispatch({type: 'model/onValueChange', payload: e})
+    if (props.modelType == 'measurement') {
+      props.dispatch({type: 'model/onValueChange', payload: e})
+    } else {
+      props.dispatch({type: 'model/onValueChange2', payload: e})
+
+    }
   }
 
   useEffect(() => {

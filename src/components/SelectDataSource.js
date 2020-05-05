@@ -24,7 +24,11 @@ function SelectDataSource (props) {
 
   const onValuesChange = (e) =>{
     console.log('e',e)
-    props.dispatch({type: 'model/onValueChange', payload: e})
+    if (props.modelType == 'measurement') {
+      props.dispatch({type: 'model/onValueChange', payload: e})
+    } else{
+      props.dispatch({type: 'model/onValueChange2', payload: e})
+    }
   }
 
 

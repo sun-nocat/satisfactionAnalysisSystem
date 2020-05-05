@@ -18,7 +18,10 @@ import { routerRedux } from 'dva/router';
 import DataImport from '../DataImport/index'
 import DataMange from '../DataManage/index'
 import MeasurementModel from '../MeasurementModel/index'
-
+import ModelManage from '../ModelManage/index'
+import StructuralModel from '../StructuralModel/index'
+import HomePage from '../HomePage/index'
+import AboutPage from '../AboutPage/index'
 import styles from './index.css'
 
 const { Header, Sider, Content } = Layout;
@@ -50,9 +53,8 @@ class MainPage extends React.Component {
   renderMenu(){
     return (
       <Menu>
-      <Menu.Item onClick={this.changeMsg}>
-        <UserUpdate/>
-      </Menu.Item>
+      {/* <Menu.Item onClick={this.changeMsg}>
+      </Menu.Item> */}
       <Menu.Item onClick={this.logout}>
           退出登录
       </Menu.Item>
@@ -80,8 +82,18 @@ class MainPage extends React.Component {
     const { menuKey } = this.props;
     switch(menuKey){
       case '1': {
-        res = 1;
+        res = <HomePage/>;
         break;
+      }
+      case '2': {
+        res =<UserUpdate/>
+        break;
+
+      }
+      case '4': {
+        res =<AboutPage/>
+        break;
+
       }
       case '5': {
         res = <DataImport />    
@@ -92,7 +104,11 @@ class MainPage extends React.Component {
         break;
       }
       case '9': {
-        res = <DataImport />
+        res = <StructuralModel />
+        break;
+      }
+      case '10': {
+        res = <ModelManage />
         break;
       }
       default : {
@@ -128,7 +144,7 @@ class MainPage extends React.Component {
             <SubMenu key="sub1" icon={<AreaChartOutlined />} title="数据处理">
               <Menu.Item key="5">数据导入</Menu.Item>
               <Menu.Item key="6">数据管理</Menu.Item>
-              <Menu.Item key="7">数据分析</Menu.Item>
+              {/* <Menu.Item key="7">数据分析</Menu.Item> */}
             </SubMenu>
             <SubMenu key="sub3" icon={<FunctionOutlined />} title="模型处理">
               <Menu.Item key="8">测量模型</Menu.Item>
@@ -139,10 +155,10 @@ class MainPage extends React.Component {
             <UserOutlined />
               <span>用户管理</span>
             </Menu.Item>
-            <Menu.Item key="3">
+            {/* <Menu.Item key="3">
             <ToolOutlined />        
               <span>技术支持</span>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="4">
             <TeamOutlined />            
               <span>关于</span>

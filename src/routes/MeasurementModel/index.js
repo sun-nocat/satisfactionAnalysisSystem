@@ -63,23 +63,23 @@ class MeasurementModel extends React.Component {
     const steps = [
       {
         title: '选择数据源',
-        content: <SelectDataSource {...this.props}/>,
+        content: <SelectDataSource {...this.props} modelType="measurement"/>,
       },
       {
         title: '定义载荷初值',
-        content: <InitMModuleValue {...this.props}/>,
+        content: <InitMModuleValue {...this.props} modelType="measurement"/>,
       },
       {
         title: '模型配置',
-        content: <ModelConfig {...this.props}/>,
+        content: <ModelConfig {...this.props} modelType="measurement"/>,
       },
       {
         title: '提交',
-        content: <SubmitModel {...this.props}/>,
+        content: <SubmitModel {...this.props} modelType="measurement"/>,
       },
       {
         title: '完成',
-        content: <LastContent {...this.props}/>,
+        content: <LastContent {...this.props} modelType="measurement"/>,
       },
     ];
     return (
@@ -93,7 +93,7 @@ class MeasurementModel extends React.Component {
           ))}
         </Steps>
         <div className="steps-content">{steps[current].content}</div>
-        <div className="steps-action" style={{textAlign: 'center'}}>
+        <div className="steps-action" style={{textAlign: 'center', marginBottom: '50px'}}>
         {current > 0 && current!==4 && (
             <Button style={{ margin: '0 8px' }} onClick={() => this.prev()}>
               上一步
@@ -118,7 +118,7 @@ class MeasurementModel extends React.Component {
 
 export default connect((state)=>{
   return {
-    modelData: state.model,
+    modelData: state.model.formInfo,
     dataList: state.data.dataList,
   }
 })(MeasurementModel);

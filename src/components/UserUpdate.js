@@ -31,7 +31,7 @@ function UserUpdate (props) {
         }})
       }).then(()=>{
         message.success('更新成功！')
-        setVisible(false)
+        // setVisible(false)
       }).catch(()=>{
         message.error('更新失败！')
       })
@@ -50,19 +50,20 @@ function UserUpdate (props) {
 
     return (
       <div>
-        <div type="primary" onClick={()=>setVisible(true)}>
+        {/* <div type="primary" onClick={()=>setVisible(true)}>
           修改信息
-        </div>
-        <Modal
+        </div> */}
+        {/* <Modal
           title="个人信息修改"
           visible={visible}
           onOk={handleOk}
           onCancel={()=>setVisible(false)}
-        >
+        > */}
           <Form
             {...layout}
             form={form}
             name="userUpdate"
+            style={{width: '50%', margin: 'auto', marginLeft: '25%', textAlign: 'center'}}
           >
             <Form.Item
               label="用户名"
@@ -86,8 +87,9 @@ function UserUpdate (props) {
             >
               <Input.Password />
             </Form.Item>
+            <Button type="primary" onClick={handleOk} style={{marginLeft: '108px', width:'100px'}}>修改</Button>
           </Form>
-        </Modal>
+        {/* </Modal> */}
       </div>
     );
   }
