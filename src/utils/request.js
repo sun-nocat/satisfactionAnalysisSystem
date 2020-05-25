@@ -41,6 +41,9 @@ function post(url, data) {
     method: 'POST',
     body: JSON.stringify(data),
     credentials: 'include',
+    headers: {
+    'Content-Type': 'application/json'
+  },
   })
 }
 
